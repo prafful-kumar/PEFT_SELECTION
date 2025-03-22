@@ -19,6 +19,20 @@ Follow the repository [PETL-ViT](https://github.com/JieShibo/PETL-ViT.git) and [
 
 For a few datasets, features can be found [here](https://drive.google.com/drive/folders/1FnvBn2UHY4mqiXx1rKlud_44hkkkf5fh?usp=drive_link).
 
+features/
+├── convpass_peft/
+│   ├── sun397/         
+│   ├── svhn/           
+│   └── ...
+│   (Total: 2.3G)
+├── facttk_peft/
+│   ├── caltech101/     
+│   ├── cifar/          
+│   ├── clevr_count/    
+│   ├── clevr_dist/     
+│   └── ...
+└── ...
+
 
 ## Pipeline of PEFT Selection 
 
