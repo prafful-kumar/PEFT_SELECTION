@@ -26,7 +26,7 @@ For a few datasets, features can be found [here](https://drive.google.com/drive/
 ### Step 1: Evaluate the traditional transferability of PEFTs on all the datasets
 
 ```bash
-python peft_previous.py -me NCTI 
+python peft_previous.py --metric NCTI 
 ```
 
 ### Step 2: Evaluate our approach for PEFT selection on all the datasets
@@ -39,7 +39,7 @@ python create_diffusion_score.py
 ### Step 3: Calculate the ranking correlation
 
 ```bash
-python tw_diffusion.py --me diffusion
+python tw_diffusion.py --metric diffusion
 ```
 
 ### Acknowledgement:
