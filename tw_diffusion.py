@@ -12,14 +12,14 @@ import pandas as pd
 
 
 def compute_kendall_tau(datasets, techniques, metric, data_dict,args):
-    logger.info(f"\nStarting Kendall Tau computation for {metric} metric")
+    
     results = []
     for dataset in datasets:
 
         score_path = f'{args.output_dir}/{metric}/{dataset}_metrics.json'
         
         if not os.path.exists(score_path):
-            logger.warning(f"File not found: {score_path}")
+            
             print(f"File not found: {score_path}")
             continue
         

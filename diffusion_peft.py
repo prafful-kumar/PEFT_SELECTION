@@ -14,7 +14,7 @@ import h5py
 import sys
 
 from diffusion_score import compute_diffusion_score
-from plot_tsne_umap import plot_tsne, plot_scree
+# from plot_tsne_umap import plot_tsne, plot_scree
 
 def save_score(score_dict, fpath):
     with open(fpath, "w") as f:
@@ -57,11 +57,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Calculate transferability score.')
     parser.add_argument('-me', '--metric', type=str, default='diffusion', 
                         help='name of the method for measuring transferability')   
-    parser.add_argument('--output-dir', type=str, default='./diffusion_score', 
+    parser.add_argument('--output-dir', type=str, default='./Diffusion_score', 
                         help='dir of output score')
-    parser.add_argument('--norm', type=str, default='none',help='normalization method')
     parser.add_argument('--t', type=float, default=10, help='diffusion time')
-    parser.add_argument('--k', type=int, default=50, help='Connectivity for diffusion')
+    parser.add_argument('--k', type=int, default=20, help='Connectivity for diffusion')
     parser.add_argument('--num_components', type=int, default=32, help='number of components used')
     parser.add_argument('--backbone', action='store_true', default=False, help='backbone features')
 
@@ -90,9 +89,9 @@ if __name__ == "__main__":
             
             os.makedirs(fpath_dir,exist_ok=True)
         
-            intra_fpath = os.path.join(fpath_dir, f'{dataset}_{args.norm}_{args.t}_{args.k}_{args.num_components}_intra_metrics.json')
+            intra_fpath = os.path.join(fpath_dir, f'{dataset}_{args.t}_{args.k}_{args.num_components}_intra_metrics.json')
         
-            inter_fpath = os.path.join(fpath_dir, f'{dataset}_{args.norm}_{args.t}_{args.k}_{args.num_components}_inter_metrics.json')
+            inter_fpath = os.path.join(fpath_dir, f'{dataset}_{args.t}_{args.k}_{args.num_components}_inter_metrics.json')
 
 
             if not os.path.exists(intra_fpath):
@@ -110,7 +109,7 @@ if __name__ == "__main__":
 
             for technique in techniques:
 
-                basedir = "../../features"
+                basedir = "./features"
 
                 if args.backbone:
                     tokens_filename = f"{basedir}/{technique}_peft/{dataset}/features_backbone.h5"
@@ -135,8 +134,6 @@ if __name__ == "__main__":
 
 
                 #     plot_tsne(tokens, labels, technique, dataset)
-                #     plot_umap(tokens, labels, technique, dataset)
-                #     plot_isomap(tokens, labels, technique, dataset)
                 #     plot_scree(tokens, labels, technique, dataset)
 
                     if len(labels) > 10000:
@@ -147,14 +144,16 @@ if __name__ == "__main__":
 
                     labels = map_labels(labels)
 
-                    if args.norm != 'none':
-                        tokens = tokens / np.linalg.norm(tokens, axis=-1, keepdims=True)
+                    tokens = tokens / np.linalg.norm(tokens, axis=-1, keepdims=True)
 
 
             #     # technique = standardize_technique_name(technique)
 
                 score_dict_intra[technique],eigenvalues, eigenvectors = compute_diffusion_score(tokens, labels,eigenvalues =None, eigenvectors=None, k=args.k,t=args.t,num_components=args.num_components,intra=True)
                 score_dict_inter[technique] = compute_diffusion_score(tokens, labels, eigenvalues=eigenvalues, eigenvectors=eigenvectors, k=args.k,t=args.t,num_components=args.num_components,intra=False)
+
+                print(f'{metric} of {technique}: {score_dict_intra[technique]}\n')
+                print(f'{metric} of {technique}: {score_dict_inter[technique]}\n')
 
             
 

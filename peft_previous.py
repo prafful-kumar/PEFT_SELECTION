@@ -6,7 +6,6 @@ import argparse
 from pprint import pprint
 import h5py
 import torch
-import models.group1 as models
 import numpy as np
 import json
 import time
@@ -52,15 +51,15 @@ def map_labels(y):
 # Main code
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Calculate transferability score.')
-    parser.add_argument('-m', '--model', type=str, default='deepcluster-v2',
-                        help='name of the pretrained model to load and evaluate (deepcluster-v2 | supervised)')
+    parser.add_argument('-m', '--model', type=str, default='resnet34',
+                        help='name of the pretrained model to load')
     parser.add_argument('-d', '--dataset', type=str, default='cifar10', 
                         help='name of the dataset to evaluate on')
     parser.add_argument('-me', '--metric', type=str, default='logme', 
                         help='name of the method for measuring transferability')   
     parser.add_argument('--nleep-ratio', type=float, default=5, 
                         help='the ratio of the Gaussian components and target data classess')
-    parser.add_argument('--output-dir', type=str, default='./TE_previous', 
+    parser.add_argument('--output-dir', type=str, default='./scores', 
                         help='dir of output score')
 
 
@@ -94,7 +93,7 @@ if __name__ == "__main__":
             for technique in techniques:
 
 
-                basedir = "../../features"
+                basedir = "./features"
                 tokens_filename = f"{basedir}/{technique}_peft/{dataset}/features_peft.h5"
 
                 print(f"Loading features from {tokens_filename}")

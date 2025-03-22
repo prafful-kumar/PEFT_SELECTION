@@ -9,7 +9,6 @@ from sklearn.decomposition import PCA
 from utils import iterative_A
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from tqdm import tqdm
-from chat_gpt import push_classes_apart, attract_features
 
 def _cov(X, shrinkage=-1):
     emp_cov = np.cov(np.asarray(X).T, bias=1)
