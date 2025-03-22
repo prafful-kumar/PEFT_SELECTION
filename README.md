@@ -23,12 +23,12 @@ The features directory is organized as follows:
 
 ```
 features/
-├── convpass_peft/
+├── LORA_peft/
 │   ├── sun397/         
 │   ├── svhn/           
 │   └── ...
 │   
-├── facttk_peft/
+├── VPT_peft/
 │   ├── caltech101/     
 │   ├── cifar/          
 │   ├── clevr_count/    
