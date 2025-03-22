@@ -25,7 +25,7 @@ features/
 │   ├── sun397/         
 │   ├── svhn/           
 │   └── ...
-│   (Total: 2.3G)
+│   
 ├── facttk_peft/
 │   ├── caltech101/     
 │   ├── cifar/          
