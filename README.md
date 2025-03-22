@@ -15,7 +15,7 @@ pip install timm==0.4.9
 
 ## Feature Extraction Preparation
 
-Follow the repository [Convpass](https://github.com/JieShibo/PETL-ViT.git),[NOAH](https://github.com/ZhangYuanhan-AI/NOAH.git) to extract the features. Store the features in `/features/*`.
+Follow the repository [PETL-ViT](https://github.com/JieShibo/PETL-ViT.git) and [NOAH](https://github.com/ZhangYuanhan-AI/NOAH.git) to extract the features. Store the features in `/features/*`.
 
 For a few datasets, features can be found [here](https://drive.google.com/drive/folders/1FnvBn2UHY4mqiXx1rKlud_44hkkkf5fh?usp=drive_link).
 
@@ -32,15 +32,16 @@ python peft_previous.py -me NCTI
 ### Step 2: Evaluate our approach for PEFT selection on all the datasets
 
 ```bash
-python diffusion_peft.py 
+python diffusion_peft.py
+python create_diffusion_score.py
 ```
 
 ### Step 3: Calculate the ranking correlation
 
 ```bash
-python tw_diffusion.py --me NCTI
+python tw_diffusion.py --me diffusion
 ```
 
 ### Acknowledgement:
 
-This code repository is developed based on [SFDA](https://github.com/TencentARC/SFDA.git), [Convpass](https://github.com/JieShibo/PETL-ViT.git),[NOAH](https://github.com/ZhangYuanhan-AI/NOAH.git)
+This code repository is developed based on [SFDA](https://github.com/TencentARC/SFDA.git), [PETL-ViT](https://github.com/JieShibo/PETL-ViT.git), and [NOAH](https://github.com/ZhangYuanhan-AI/NOAH.git).
