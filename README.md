@@ -1,5 +1,7 @@
 # PEFT_SELECTION
 
+![image info](teaser.png)
+
 ## Requirements
 
 - PyTorch version 1.9.0
