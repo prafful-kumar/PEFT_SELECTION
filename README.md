@@ -1,7 +1,5 @@
 # Diffusion-Guided Transferability Estimation for Parameter-Efficient Fine-Tuning
 
-📄 Published at ICCV 2025, Hawaii
-
 ![image info](teaser.png)
 
 ## Requirements
