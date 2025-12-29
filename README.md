@@ -19,8 +19,6 @@ pip install timm==0.4.9
 
 Follow the repository [PETL-ViT](https://github.com/JieShibo/PETL-ViT.git) and [NOAH](https://github.com/ZhangYuanhan-AI/NOAH.git) to extract the features. Store the features in `/features/*`.
 
-For a few datasets, features can be found [here](https://drive.google.com/drive/folders/1FnvBn2UHY4mqiXx1rKlud_44hkkkf5fh?usp=drive_link).
-
 The features directory is organized as follows:
 
 ```
