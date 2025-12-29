@@ -72,242 +72,303 @@ if __name__ == '__main__':
     parser.add_argument('--output-dir', type=str, default='./scores', 
                         help='dir of output score')
 
+    parser.add_argument('--task', type=str, default='vtab', choices=['vtab', 'fgvc'],
+                        help='Task type: vtab or fgvc')
+
+
 
     args = parser.parse_args()
 
 
     
-    data_dict_new = {
-    "caltech101": {
-        "ADAPTER": 88.78,
-        "LORA": 88.82,
-        "convpass": 90.91,
-        "convpassattn": 91.77,
-        "facttt": 91.30,
-        "facttk": 91.39,
-        "VPT": 89.24,
-        "bitfit": 86.88,
-        "NOAH": 91.87
-    },
-    "cifar": {
-        "ADAPTER": 65.39,
-        "LORA": 67.94,
-        "convpass": 72.65,
-        "convpassattn": 70.58,
-        "facttt": 71.08,
-        "facttk": 71.21,
-        "VPT": 64.92,
-        "bitfit": 66.23,
-        "NOAH": 73.49
-    },
-    "dtd": {
-        "ADAPTER": 69.82,
-        "LORA": 69.16,
-        "convpass": 74.65,
-        "convpassattn": 74.15,
-        "facttt": 74.11,
-        "facttk": 73.00,
-        "VPT": 68.78,
-        "bitfit": 67.48,
-        "NOAH": 73.42
-    },
-    "oxford_flowers102": {
-        "ADAPTER": 97.62,
-        "LORA": 97.54,
-        "convpass": 99.17,
-        "convpassattn": 98.79,
-        "facttt": 98.55,
-        "facttk": 98.42,
-        "VPT": 99.42,
-        "bitfit": 97.81,
-        "NOAH": 99.57
-    },
-    "oxford_iiit_pet": {
-        "ADAPTER": 91.11,
-        "LORA": 90.34,
-        "convpass": 91.94,
-        "convpassattn": 92.18,
-        "facttt": 91.34,
-        "facttk": 91.45,
-        "VPT": 90.97,
-        "bitfit": 89.12,
-        "NOAH": 90.80
-    },
-    "svhn": {
-        "ADAPTER": 91.01,
-        "LORA": 91.20,
-        "convpass": 91.42,
-        "convpassattn": 91.83,
-        "facttt": 89.47,
-        "facttk": 89.91,
-        "VPT": 91.25,
-        "bitfit": 88.50,
-        "NOAH": 89.32
-    },
-    "sun397": {
-        "ADAPTER": 53.20,
-        "LORA": 53.13,
-        "convpass": 52.94,
-        "convpassattn": 53.43,
-        "facttt": 53.28,
-        "facttk": 53.20,
-        "VPT": 52.12,
-        "bitfit": 51.27,
-        "NOAH": 52.06
-    },
-    "patch_camelyon": {
-        "ADAPTER": 85.77,
-        "LORA": 84.28,
-        "convpass": 88.19,
-        "convpassattn": 89.13,
-        "facttt": 88.78,
-        "facttk": 87.59,
-        "VPT": 86.23,
-        "bitfit": 85.87,
-        "NOAH": 87.23
-    },
-    "eurosat": {
-        "ADAPTER": 96.93,
-        "LORA": 97.01,
-        "convpass": 97.22,
-        "convpassattn": 97.29,
-        "facttt": 97.21,
-        "facttk": 97.43,
-        "VPT": 97.13,
-        "bitfit": 94.82,
-        "NOAH": 97.05
-    },
-    "resisc45": {
-        "ADAPTER": 84.03,
-        "LORA": 84.67,
-        "convpass": 86.61,
-        "convpassattn": 86.82,
-        "facttt": 85.42,
-        "facttk": 85.63,
-        "VPT": 85.89,
-        "bitfit": 82.43,
-        "NOAH": 86.37
-    },
-    "diabetic_retinopathy": {
-        "ADAPTER": 75.60,
-        "LORA": 73.78,
-        "convpass": 73.49,
-        "convpassattn": 75.44,
-        "facttt": 73.25,
-        "facttk": 73.86,
-        "VPT": 74.00,
-        "bitfit": 73.19,
-        "NOAH": 75.14
-    },
-    "clevr_count": {
-        "ADAPTER": 82.48,
-        "LORA": 82.17,
-        "convpass": 83.17,
-        "convpassattn": 83.09,
-        "facttt": 82.96,
-        "facttk": 82.2,
-        "VPT": 82.91,
-        "bitfit": 80.37,
-        "NOAH": 82.83
-    },
-    "clevr_dist": {
-        "ADAPTER": 65.90,
-        "LORA": 64.31,
-        "convpass": 65.19,
-        "convpassattn": 65.48,
-        "facttt": 65.61,
-        "facttk": 65.94,
-        "VPT": 65.48,
-        "bitfit": 63.73,
-        "NOAH": 66.22
-    },
-    "dmlab": {
-        "ADAPTER": 50.97,
-        "LORA": 50.62,
-        "convpass": 51.93,
-        "convpassattn": 51.88,
-        "facttt": 51.07,
-        "facttk": 52.39,
-        "VPT": 50.14,
-        "bitfit": 47.91,
-        "NOAH": 50.26
-    },
-    "kitti": {
-        "ADAPTER": 78.10,
-        "LORA": 78.93,
-        "convpass": 81.86,
-        "convpassattn": 78.90,
-        "facttt": 78.19,
-        "facttk": 76.09,
-        "VPT": 73.80,
-        "bitfit": 75.11,
-        "NOAH": 80.06
-    },
-    "dsprites_loc": {
-        "ADAPTER": 82.68,
-        "LORA": 82.01,
-        "convpass": 85.12,
-        "convpassattn": 84.29,
-        "facttt": 86.35,
-        "facttk": 86.19,
-        "VPT": 83.41,
-        "bitfit": 78.46,
-        "NOAH": 85.99
-    },
-    "dsprites_ori": {
-        "ADAPTER": 54.48,
-        "LORA": 54.30,
-        "convpass": 54.13,
-        "convpassattn": 54.72,
-        "facttt": 54.26,
-        "facttk": 54.18,
-        "VPT": 52.63,
-        "bitfit": 51.58,
-        "NOAH": 53.84
-    },
-    "smallnorb_azi": {
-        "ADAPTER": 35.16,
-        "LORA": 37.18,
-        "convpass": 38.49,
-        "convpassattn": 38.48,
-        "facttt": 37.84,
-        "facttk": 38.30,
-        "VPT": 34.33,
-        "bitfit": 22.20,
-        "NOAH": 34.91
-    },
-    "smallnorb_ele": {
-        "ADAPTER": 43.16,
-        "LORA": 43.08,
-        "convpass": 45.79,
-        "convpassattn": 43.18,
-        "facttt": 43.55,
-        "facttk": 43.08,
-        "VPT": 42.88,
-        "bitfit": 37.47,
-        "NOAH": 44.81
-    }
-}
+    
 
-    # technique_mapping = {
-    #     "bitfit": "BitFit",
-    #     "ADAPTER": "Adapter",
-    #     "LORA": "LoRA",
-    #     "NOAH": "NOAH",
-    #     "VPT": "VPT-Deep",
-    #     "convpass": "Convpass",
-    #     "convpassattn": "Convpass_attn",
-    #     "facttt": "FacT-TT<16",
-    #     "facttk": "FacT-TK32"
-    # }
+    
 
+    if args.task == 'vtab':
+        datasets = ["cifar100","caltech101", "dtd", "oxford_flowers102", "oxford_iiit_pet", "svhn", "sun397","patch_camelyon", 
+                    "eurosat", "resisc45", "diabetic_retinopathy", "clevr_count", "clevr_dist", "dmlab","kitti", 
+                    "dsprites_loc", "dsprites_ori", "smallnorb_azi", "smallnorb_ele"]
 
-    datasets = ["caltech101", "cifar", "dtd", "oxford_flowers102", "oxford_iiit_pet", "svhn", "sun397", "patch_camelyon", "eurosat", "resisc45", "diabetic_retinopathy", "clevr_count", "clevr_dist", "dmlab", "kitti", "dsprites_loc", "dsprites_ori", "smallnorb_azi", "smallnorb_ele"]
-    techniques = ["ADAPTER", "LORA",  "convpass", "convpassattn", "facttt", "facttk","VPT","bitfit","NOAH"]
+        data_dict = {
+                    "caltech101": {
+                        "adapter": 88.78,
+                        "lora": 88.82,
+                        "convpass": 90.91,
+                        "convpass_attn": 91.77,
+                        "fact_tt": 91.30,
+                        "fact_tk": 91.39,
+                        "vptshallow": 92.24,
+                        "bitfit": 86.88,
+                        "noah": 91.01
+                    },
+                    "cifar100": {
+                        "adapter": 72.39,
+                        "lora": 69.94,
+                        "convpass": 72.65,
+                        "convpass_attn": 68.58,
+                        "fact_tt": 72.08,
+                        "fact_tk": 72.21,
+                        "vptshallow": 73.92,
+                        "bitfit": 72.83,
+                        "noah": 72.49
+                    },
+                    "dtd": {
+                        "adapter": 69.82,
+                        "lora": 69.16,
+                        "convpass": 73.65,
+                        "convpass_attn": 73.15,
+                        "fact_tt": 73.11,
+                        "fact_tk": 72.00,
+                        "vptshallow": 73.78,
+                        "bitfit": 67.48,
+                        "noah": 73.42
+                    },
+                    "oxford_flowers102": {
+                        "adapter": 97.62,
+                        "lora": 97.54,
+                        "convpass": 98.17,
+                        "convpass_attn": 98.79,
+                        "fact_tt": 99.55,
+                        "fact_tk": 98.42,
+                        "vptshallow": 99.42,
+                        "bitfit": 97.81,
+                        "noah": 97.97
+                    },
+                    "oxford_iiit_pet": {
+                        "adapter": 91.11,
+                        "lora": 90.34,
+                        "convpass": 90.94,
+                        "convpass_attn": 91.18,
+                        "fact_tt": 91.34,
+                        "fact_tk": 91.45,
+                        "vptshallow": 91.97,
+                        "bitfit": 89.12,
+                        "noah": 90.80
+                    },
+                    "svhn": {
+                        "adapter": 91.01,
+                        "lora": 90.67,
+                        "convpass": 90.42,
+                        "convpass_attn": 92.83,
+                        "fact_tt": 89.47,
+                        "fact_tk": 89.91,
+                        "vptshallow": 91.25,
+                        "bitfit": 92.50,
+                        "noah": 89.32
+                    },
+                    "sun397": {
+                        "adapter": 53.20,
+                        "lora": 53.13,
+                        "convpass": 52.94,
+                        "convpass_attn": 53.43,
+                        "fact_tt": 53.28,
+                        "fact_tk": 53.20,
+                        "vptshallow": 54.12,
+                        "bitfit": 51.27,
+                        "noah": 52.06
+                    },
+                    "patch_camelyon": {
+                        "adapter": 85.77,
+                        "lora": 88.98,
+                        "convpass": 88.39,
+                        "convpass_attn": 88.13,
+                        "fact_tt": 87.78,
+                        "fact_tk": 88.59,
+                        "vptshallow": 88.23,
+                        "bitfit": 85.87,
+                        "noah": 87.23
+                    },
+                    "eurosat": {
+                        "adapter": 96.93,
+                        "lora": 97.91,
+                        "convpass": 97.22,
+                        "convpass_attn": 98.29,
+                        "fact_tt": 97.21,
+                        "fact_tk": 97.43,
+                        "vptshallow": 97.13,
+                        "bitfit": 97.82,
+                        "noah": 97.05
+                    },
+                    "resisc45": {
+                        "adapter": 84.03,
+                        "lora": 84.67,
+                        "convpass": 86.61,
+                        "convpass_attn": 85.82,
+                        "fact_tt": 85.42,
+                        "fact_tk": 85.63,
+                        "vptshallow": 85.89,
+                        "bitfit": 82.43,
+                        "noah": 85.37
+                    },
+                    "diabetic_retinopathy": {
+                        "adapter": 74.60,
+                        "lora": 73.78,
+                        "convpass": 75.49,
+                        "convpass_attn": 74.44,
+                        "fact_tt": 73.25,
+                        "fact_tk": 73.86,
+                        "vptshallow": 74.00,
+                        "bitfit": 74.19,
+                        "noah": 73.14
+                    },
+                    "clevr_count": {
+                        "adapter": 82.48,
+                        "lora": 82.17,
+                        "convpass": 83.17,
+                        "convpass_attn": 82.09,
+                        "fact_tt": 82.96,
+                        "fact_tk": 82.2,
+                        "vptshallow": 82.91,
+                        "bitfit": 80.37,
+                        "noah": 82.83
+                    },
+                    "clevr_dist": {
+                        "adapter": 63.90,
+                        "lora": 64.31,
+                        "convpass": 66.19,
+                        "convpass_attn": 65.48,
+                        "fact_tt": 65.61,
+                        "fact_tk": 65.94,
+                        "vptshallow": 66.08,
+                        "bitfit": 63.73,
+                        "noah": 63.22
+                    },
+                    "dmlab": {
+                        "adapter": 50.97,
+                        "lora": 50.62,
+                        "convpass": 51.93,
+                        "convpass_attn": 51.88,
+                        "fact_tt": 51.07,
+                        "fact_tk": 52.39,
+                        "vptshallow": 49.14,
+                        "bitfit": 49.91,
+                        "noah": 50.26
+                    },
+                    "kitti": {
+                        "adapter": 78.10,
+                        "lora": 78.93,
+                        "convpass": 81.86,
+                        "convpass_attn": 78.90,
+                        "fact_tt": 77.19,
+                        "fact_tk": 76.09,
+                        "vptshallow": 79.80,
+                        "bitfit": 75.11,
+                        "noah": 79.06
+                    },
+                    "dsprites_loc": {
+                        "adapter": 82.68,
+                        "lora": 82.01,
+                        "convpass": 86.72,
+                        "convpass_attn": 84.29,
+                        "fact_tt": 86.35,
+                        "fact_tk": 86.19,
+                        "vptshallow": 82.41,
+                        "bitfit": 81.46,
+                        "noah": 86.69
+                    },
+                    "dsprites_ori": {
+                        "adapter": 54.48,
+                        "lora": 54.30,
+                        "convpass": 54.13,
+                        "convpass_attn": 53.73,
+                        "fact_tt": 53.25,
+                        "fact_tk": 53.18,
+                        "vptshallow": 54.63,
+                        "bitfit": 51.58,
+                        "noah": 53.84
+                    },
+                    "smallnorb_azi": {
+                        "adapter": 35.16,
+                        "lora": 37.18,
+                        "convpass": 36.49,
+                        "convpass_attn": 36.48,
+                        "fact_tt": 36.84,
+                        "fact_tk": 38.30,
+                        "vptshallow": 34.33,
+                        "bitfit": 37.11,
+                        "noah": 34.91
+                    },
+                    "smallnorb_ele": {
+                        "adapter": 43.16,
+                        "lora": 43.08,
+                        "convpass": 45.79,
+                        "convpass_attn": 43.18,
+                        "fact_tt": 42.55,
+                        "fact_tk": 43.08,
+                        "vptshallow": 42.88,
+                        "bitfit": 37.47,
+                        "noah": 42.81
+                    }
+                    }
+
+    elif args.task == 'fgvc':
+        datasets = ["CUB_200_2011", "nabirds", "OxfordFlower", "StanfordCars", "StanfordDogs"]
+
+        data_dict = {
+                    "CUB_200_2011": {
+                        "adapter": 88.81,
+                        "lora": 89.65,
+                        "convpass": 88.99,
+                        "convpass_attn": 88.76,
+                        "fact_tt": 87.37,
+                        "fact_tk": 87.12,
+                        "vptshallow": 89.57,
+                        "bitfit": 88.51,
+                        "noah": 89.59
+                    },
+                    "nabirds": {
+                        "adapter": 86.11,
+                        "lora": 86.95,
+                        "convpass": 84.21,
+                        "convpass_attn": 86.94,
+                        "fact_tt": 84.59,
+                        "fact_tk": 83.47,
+                        "vptshallow": 85.16,
+                        "bitfit": 84.19,
+                        "noah": 86.82
+                    },
+                    "OxfordFlower": {
+                        "adapter": 98.42,
+                        "lora": 99.19,
+                        "convpass": 98.13,
+                        "convpass_attn": 99.21,
+                        "fact_tt": 99.05,
+                        "fact_tk": 98.73,
+                        "vptshallow": 99.11,
+                        "bitfit": 98.91,
+                        "noah": 99.06
+                    },
+                    "StanfordCars": {
+                        "adapter": 86.21,
+                        "lora": 84.39,
+                        "convpass": 85.61,
+                        "convpass_attn": 85.19,
+                        "fact_tt": 85.48,
+                        "fact_tk": 85.92,
+                        "vptshallow": 84.77,
+                        "bitfit": 84.04,
+                        "noah": 85.14
+                    },
+                    "StanfordDogs": {
+                        "adapter": 91.92,
+                        "lora": 91.04,
+                        "convpass": 92.82,
+                        "convpass_attn": 93.12,
+                        "fact_tt": 91.01,
+                        "fact_tk": 92.49,
+                        "vptshallow": 93.48,
+                        "bitfit": 92.81,
+                        "noah": 93.22
+                    }
+                }
+
+    
+        
+    techniques = ["adapter", "lora",  "convpass", "convpass_attn", "fact_tt", "fact_tk","vptshallow","bitfit","noah"]
     metric = args.metric
     
     kendall_results = compute_kendall_tau(
-        datasets, techniques, metric, data_dict_new, args
+        datasets, techniques, metric, data_dict, args
     )
-
 
